@@ -3,10 +3,10 @@ import os.path
 import requests
 import datetime
 import glob
-import secrets
+import env
 
 
-print "Fetching image..."
+print("Fetching image...")
 
 
 API_LOCAL_URL = 'http://localhost:3000/watcher/upload'
@@ -14,7 +14,7 @@ API_LIVE_URL = 'https://nickneuman.co/watcher/upload'
 
 
 # Get most recent image
-ImageDirPath = '/Users/nickneuman/Downloads/images/*'
+ImageDirPath = env.IMAGE_PATH
 ImageDir = glob.glob(ImageDirPath)
 
 
@@ -23,7 +23,7 @@ if len(ImageDir) > 0:
 	MostRecentImage = max(ImageDir, key=os.path.getctime)
 	ImagePath = MostRecentImage
 else:
-	print "No images were found"
+	print("No images were found")
 	exit()
 
 
@@ -32,7 +32,7 @@ ImageExists = os.path.exists(ImagePath)
 if ImageExists:
 	Image = open(ImagePath, 'rb')
 else:
-	print "Image does not exist"
+	print("Image does not exist")
 	exit()
 
 
@@ -43,23 +43,23 @@ Data = {'taken_at': TakenAt}
 
 
 # Auth Headers
-USER = secrets.USER
-PWD = secrets.PWD
+USER = env.USER
+PWD = env.PWD
 
 
 # Send data
-print "Uploading image"
+print("Uploading image")
 Response = requests.post(API_LIVE_URL, auth=(USER, PWD), files=Files, data=Data)
 
-
+Image.close()
 Status = Response.status_code
 if Status != 200:
-	print "HTTP Status: %s" % Status
-	print "Image was not uploaded"
+	print("HTTP Status: %s" % Status)
+	print("Image was not uploaded")
 else:
 	os.remove(ImagePath)
-	print "Local copy removed"
-	print "Upload was successful"
+	print("Local copy removed")
+	print("Upload was successful")
 
 
 exit()

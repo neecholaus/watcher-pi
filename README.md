@@ -13,6 +13,8 @@ cd watcher-pi
 pip install -r requirements.txt
 ```
 
+Add `USER`, `PWD` and `IMAGE_PATH` values to an env.py file.
+
 ```bash
 python app.py
 ```
