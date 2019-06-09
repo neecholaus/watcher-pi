@@ -1,2 +1,4 @@
 requests
 __pycache__
+env.py
+env.pyc
