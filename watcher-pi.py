@@ -12,18 +12,14 @@ while True:
 	cmd = "raspistill -o %s%s" % (env.IMAGE_SAVE_TO, imgname)
 	os.system(cmd)
 
-
 	print("Fetching image...")
-
 
 	API_LOCAL_URL = 'http://localhost:3000/watcher/api-upload'
 	API_LIVE_URL = 'https://nickneuman.co/watcher/api-upload'
 
-
 	# Get most recent image
 	ImageDirPath = env.IMAGE_GET_FROM
 	ImageDir = glob.glob(ImageDirPath)
-
 
 	# Ensure max() has images to compare
 	if len(ImageDir) > 0:
@@ -33,7 +29,6 @@ while True:
 		print("No images were found")
 		exit()
 
-
 	# Ensure image exists
 	ImageExists = os.path.exists(ImagePath)
 	if ImageExists:
@@ -42,17 +37,14 @@ while True:
 		print("Image does not exist")
 		exit()
 
-
 	# Form multipart and payload
 	Files = {'file': Image}
 	TakenAt = (datetime.datetime.now()).ctime()
 	Data = {'taken_at': TakenAt}
 
-
 	# Auth Headers
 	USER = env.USER
 	PWD = env.PWD
-
 
 	# Send data
 	print("Uploading image")
@@ -69,6 +61,5 @@ while True:
 		print("Upload was successful")
 
 	time.sleep(1)
-
 
 exit()

@@ -1,0 +1,24 @@
+{
+  "name": "watcher-pi",
+  "version": "1.0.0",
+  "description": "Micro-service that runs on a raspberry pi taking and sending images to another repository.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neecholaus/watcher-pi.git"
+  },
+  "keywords": [
+    "watcher",
+    "microservice",
+    "raspberry pi"
+  ],
+  "author": "Nick Neuman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neecholaus/watcher-pi/issues"
+  },
+  "homepage": "https://github.com/neecholaus/watcher-pi#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
+}
