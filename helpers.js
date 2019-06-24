@@ -1,13 +1,15 @@
 const fs = require('fs');
 
-const Helpers = {
-    getMtime: (path) => {
-        return fs.statSync(path).mtime.getTime();
-    },
-    error: (message) => {
-        console.log(`ERROR: ${message}`);
-        return;
-    }
+function getMtime(path) {
+    return fs.statSync(path).mtime.getTime();
 }
 
-module.exports = Helpers;
+function error(message) {
+    console.log(`ERROR: ${message}`);
+    return;
+}
+
+module.exports = {
+    getMtime,
+    error
+}
