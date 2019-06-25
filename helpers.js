@@ -6,7 +6,7 @@ function getMtime(path) {
 
 function error(message) {
     console.log(`ERROR: ${message}`);
-    return;
+    return false;
 }
 
 module.exports = {
