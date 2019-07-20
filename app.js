@@ -13,9 +13,23 @@ const {IMAGE_DIR, API_USER, API_PASS} = process.env;
 
 function watch() {
     console.log('taking image...');
-    const filename = Date.now().toString();
-    let cmd = `raspistill -o ${IMAGE_DIR}/${filename}.jpg -n --timeout 1`;
+    let filename = Date.now().toString();
+
+	const oldImageExists = fs.existsSync(`${IMAGE_DIR}/old.jpg`);
+	
+	if(!oldImageExists) {
+		console.log('comparator image does not exists...\ncreating and restarting...');
+		filename = 'old';
+	}
+
+	let cmd = `raspistill -o ${IMAGE_DIR}/${filename}.jpg -n --timeout 1`;
+
     execSync(cmd);
+
+	if(!oldImageExists) {
+		watch();
+		return;
+	}
 
     fs.readdir(IMAGE_DIR, (err, data) => {
         if(err) return hlp.error(err);
@@ -37,7 +51,7 @@ function watch() {
         if(!fs.existsSync(`${IMAGE_DIR}/${newest}`)) {
             if(data.length > 0) console.log('no images found');
             else console.log('image was not found');
-	    watch();
+			watch();
             //setTimeout(watch,1000);
             return;
         }
